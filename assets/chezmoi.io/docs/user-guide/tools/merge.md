@@ -1,13 +1,22 @@
 # Merge
 
+## What is merge command
+
+When running `chezmoi apply --interactive`, chezmoi computes the desired state (the target) from your source. If applying would change a file on disk - i.e. the destination differs from the target, usually because you edited the live file directly - a prompt appears to either overwrite, diff, skip, or merge.
+
+Choosing merge is chezmoi's analog of resolving a git conflict by hand - except it reconciles **three** states, not two;
+1. .Destination - the file in your system
+2. .Source -  the file in chezmoi and the source of truth
+3. .Target -  desired state, computed by rendering the source (templates applied, etc.)
+
 ## Use a custom merge command
 
-By default, chezmoi uses `vimdiff`. You can use a custom command by setting the
-`merge.command` and `merge.args` configuration variables. The elements of
-`merge.args` are interpreted as templates with the variables `.Destination`,
-`.Source`, and `.Target` containing filenames of the file in the destination
-state, source state, and target state respectively. For example, to use
-[neovim's diff mode][nvim], specify:
+>By default, chezmoi uses `vimdiff`. You can use a custom command by setting the
+>`merge.command` and `merge.args` configuration variables. The elements of
+>`merge.args` are interpreted as templates with the variables `.Destination`,
+>`.Source`, and `.Target` containing filenames of the file in the destination
+>state, source state, and target state respectively. For example, to use
+>[neovim's diff mode][nvim], specify:
 
 === "TOML"
 
